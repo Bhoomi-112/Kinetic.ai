@@ -16,109 +16,135 @@ from typing import Optional, Tuple
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def initialize_page():
-    """Configure Streamlit page with custom CSS for minimalist dark theme."""
+    """Configure Streamlit page with custom CSS for Gemini-inspired theme."""
     st.set_page_config(
-        page_title="Kinetic.AI | Forensic Image Analysis",
+        page_title="Kinetic.AI | Forensic Analysis",
         page_icon="⚡",
-        layout="wide",
-        initial_sidebar_state="collapsed"
+        layout="centered",  # Better for mobile responsiveness
+        initial_sidebar_state="collapsed",
+        menu_items={
+            'About': "Kinetic.AI - Advanced AI-Generated Image Detection"
+        }
     )
     
-    # Custom CSS Injection - Serene Minimalism Theme
+    # Custom CSS Injection - Gemini-Inspired Theme
     st.markdown("""
         <style>
-        /* Global Dark Theme */
+        /* Global Gemini Theme */
         .stApp {
-            background-color: #0e1117;
-            color: #F5F5DC;
+            background: #000000;
+            color: #e8eaed;
+        }
+        
+        /* Container padding adjustment */
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
         
         /* Header Styling */
         h1 {
-            color: #F5F5DC;
-            font-family: 'Courier New', monospace;
-            font-weight: 300;
-            letter-spacing: 2px;
+            background: linear-gradient(135deg, #4285f4 0%, #9c27b0 50%, #f538a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Google Sans', 'Segoe UI', system-ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.5px;
             text-align: center;
             padding: 2rem 0 1rem 0;
-            border-bottom: 1px solid #8A9A5B;
+            font-size: 3rem;
         }
         
         /* File Uploader Styling */
         .stFileUploader {
-            background-color: #1a1f2e;
-            border: 2px dashed #8A9A5B;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.05) 0%, rgba(156, 39, 176, 0.05) 100%);
+            border: 2px dashed rgba(66, 133, 244, 0.5);
+            border-radius: 16px;
             padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stFileUploader:hover {
+            border-color: #4285f4;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
         }
         
         .stFileUploader label {
-            color: #8A9A5B !important;
+            color: #4285f4 !important;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
+            font-family: 'Google Sans', sans-serif;
         }
         
         /* Button Styling */
         .stButton > button {
-            background: linear-gradient(135deg, #8A9A5B 0%, #6d7a47 100%);
-            color: #0e1117;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #4285f4 0%, #9c27b0 100%);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.85rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 24px;
             width: 100%;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Google Sans', sans-serif;
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
         }
         
         .stButton > button:hover {
-            background: linear-gradient(135deg, #a3b56c 0%, #8A9A5B 100%);
+            background: linear-gradient(135deg, #5a95f5 0%, #b039c0 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(138, 154, 91, 0.4);
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.5);
         }
         
         /* Forensic Log Terminal Styling */
         .forensic-log {
-            background-color: #0a0e14;
-            border: 1px solid #8A9A5B;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.6) 0%, rgba(15, 20, 25, 0.8) 100%);
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            border-radius: 16px;
             padding: 1.5rem;
-            font-family: 'Courier New', monospace;
+            font-family: 'Roboto Mono', 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.6;
             max-height: 600px;
             overflow-y: auto;
-            color: #F5F5DC;
+            color: #e8eaed;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
         
         .forensic-log h3 {
-            color: #8A9A5B;
-            border-bottom: 1px solid #8A9A5B;
+            background: linear-gradient(90deg, #4285f4 0%, #9c27b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 2px solid rgba(66, 133, 244, 0.3);
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .forensic-log strong {
-            color: #8A9A5B;
+            color: #4285f4;
         }
         
         /* Image Container */
         .image-container {
-            border: 1px solid #8A9A5B;
-            border-radius: 8px;
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            border-radius: 16px;
             padding: 1rem;
-            background-color: #1a1f2e;
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.4) 0%, rgba(15, 20, 25, 0.6) 100%);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
         
         /* Info Box */
         .info-box {
-            background-color: #1a1f2e;
-            border-left: 4px solid #8A9A5B;
-            padding: 1rem;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08) 0%, rgba(156, 39, 176, 0.08) 100%);
+            border-left: 4px solid #4285f4;
+            padding: 1.25rem;
             margin: 1rem 0;
-            border-radius: 4px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(66, 133, 244, 0.15);
         }
         
         /* Scrollbar Styling */
@@ -128,33 +154,256 @@ def initialize_page():
         }
         
         ::-webkit-scrollbar-track {
-            background: #0e1117;
+            background: rgba(15, 20, 25, 0.5);
+            border-radius: 5px;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #8A9A5B;
+            background: linear-gradient(135deg, #4285f4 0%, #9c27b0 100%);
             border-radius: 5px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #a3b56c;
+            background: linear-gradient(135deg, #5a95f5 0%, #b039c0 100%);
         }
         
         /* Status Messages */
         .stSuccess {
-            background-color: #1a2e1a;
-            border: 1px solid #8A9A5B;
-            color: #8A9A5B;
+            background-color: rgba(66, 133, 244, 0.1);
+            border: 1px solid #4285f4;
+            color: #4285f4;
+            border-radius: 12px;
         }
         
         .stError {
-            background-color: #2e1a1a;
-            border: 1px solid #c44536;
+            background-color: rgba(244, 67, 54, 0.1);
+            border: 1px solid #f44336;
+            border-radius: 12px;
         }
         
         /* Spinner */
         .stSpinner > div {
-            border-top-color: #8A9A5B !important;
+            border-top-color: #4285f4 !important;
+            border-right-color: #9c27b0 !important;
+        }
+        
+        /* Headers h3 */
+        h3 {
+            color: #4285f4;
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+        
+        /* Captions */
+        .caption {
+            color: #9aa0a6;
+        }
+        
+        /* Tab Styling */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 8px;
+            background: transparent;
+        }
+        
+        .stTabs [data-baseweb="tab"] {
+            background: rgba(66, 133, 244, 0.1);
+            border-radius: 12px;
+            padding: 12px 24px;
+            color: #9aa0a6;
+            border: 1px solid rgba(66, 133, 244, 0.2);
+        }
+        
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #4285f4 0%, #9c27b0 100%);
+            color: #ffffff;
+            border: 1px solid transparent;
+        }
+        
+        /* Full width for better mobile */
+        .main .block-container {
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Responsive Design - Tablet */
+        @media (max-width: 1024px) {
+            .main .block-container {
+                padding: 1.5rem 1rem;
+                max-width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+                padding: 1rem 0 0.5rem 0;
+            }
+            
+            .forensic-log {
+                max-height: 500px;
+            }
+        }
+        
+        /* Responsive Design - Mobile */
+        @media (max-width: 768px) {
+            .main .block-container {
+                padding: 1rem 0.5rem !important;
+                max-width: 100% !important;
+            }
+            
+            h1 {
+                font-size: 1.75rem !important;
+                padding: 0.75rem 0.5rem !important;
+                line-height: 1.3;
+            }
+            
+            h3 {
+                font-size: 1.2rem !important;
+                margin: 1rem 0 0.5rem 0 !important;
+            }
+            
+            .info-box {
+                padding: 1rem !important;
+                font-size: 0.9rem !important;
+                margin: 1rem 0 !important;
+                line-height: 1.6;
+            }
+            
+            .stFileUploader {
+                padding: 1rem !important;
+                margin: 0.75rem 0;
+            }
+            
+            .stFileUploader label {
+                font-size: 0.95rem !important;
+            }
+            
+            .stButton > button {
+                padding: 1rem !important;
+                font-size: 0.95rem !important;
+                min-height: 52px !important;
+                width: 100% !important;
+            }
+            
+            .stTabs [data-baseweb="tab"] {
+                padding: 10px 16px !important;
+                font-size: 0.9rem;
+            }
+            
+            .forensic-log {
+                max-height: 65vh !important;
+                padding: 1rem !important;
+                font-size: 0.85rem !important;
+                line-height: 1.6;
+            }
+            
+            .forensic-log h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            .forensic-log ul {
+                padding-left: 1.25rem;
+            }
+            
+            .forensic-log li {
+                margin: 0.4rem 0;
+            }
+            
+            .image-container {
+                padding: 0.5rem !important;
+                margin: 0.5rem 0;
+            }
+            
+            [data-testid="stCaptionContainer"] {
+                font-size: 0.85rem !important;
+                margin: 0.25rem 0 !important;
+            }
+        }
+        
+        /* Responsive Design - Small Mobile */
+        @media (max-width: 480px) {
+            .main .block-container {
+                padding: 0.75rem 0.25rem !important;
+            }
+            
+            h1 {
+                font-size: 1.5rem !important;
+                padding: 0.5rem 0.25rem !important;
+            }
+            
+            h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            .info-box {
+                padding: 0.875rem !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .stFileUploader {
+                padding: 0.75rem !important;
+            }
+            
+            .stButton > button {
+                padding: 0.875rem !important;
+                font-size: 0.9rem !important;
+                min-height: 48px !important;
+            }
+            
+            .stTabs [data-baseweb="tab"] {
+                padding: 8px 12px !important;
+                font-size: 0.85rem;
+            }
+            
+            .forensic-log {
+                max-height: 60vh !important;
+                padding: 0.75rem !important;
+                font-size: 0.8rem !important;
+            }
+            
+            .forensic-log h3 {
+                font-size: 1rem !important;
+            }
+            
+            ::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+            }
+        }
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+                padding: 1rem 0 0.5rem 0;
+            }
+            
+            .stFileUploader {
+                padding: 1.5rem;
+            }
+            
+            .forensic-log {
+                max-height: 500px;
+                font-size: 0.9rem;
+            }
+            
+            .info-box {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Touch-friendly spacing */
+        @media (hover: none) and (pointer: coarse) {
+            .stButton > button {
+                min-height: 48px;
+                padding: 0.875rem 1.5rem;
+            }
         }
         </style>
     """, unsafe_allow_html=True)
@@ -1232,11 +1481,10 @@ def main():
         image = validate_image(uploaded_file)
         
         if image is not None:
-            # Two-column layout: Image on left, Results on right
-            col1, col2 = st.columns([1, 1], gap="large")
+            # Use tabs for better mobile experience
+            tab1, tab2 = st.tabs(["🖼️ Image", "📋 Analysis"])
             
-            with col1:
-                st.markdown("### 🖼️ Input Image")
+            with tab1:
                 st.markdown('<div class="image-container">', unsafe_allow_html=True)
                 st.image(image, use_container_width=True)
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -1246,11 +1494,9 @@ def main():
                 st.caption(f"📐 **Dimensions**: {image.size[0]} × {image.size[1]} px")
                 st.caption(f"💾 **Size**: {uploaded_file.size / 1024:.1f} KB")
             
-            with col2:
-                st.markdown("### 📋 Forensic Log")
-                
+            with tab2:
                 # Audit button
-                if st.button("🔬 Initiate Deep Forensic Stress Test"):
+                if st.button("🔬 Initiate Deep Forensic Stress Test", use_container_width=True):
                     # Progress indicator
                     with st.spinner("🔍 Executing UPL Protocol Analysis..."):
                         start_time = time.time()
@@ -1289,8 +1535,11 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown("""
-        <div style="text-align: center; color: #8A9A5B; font-size: 0.9rem; padding: 2rem 0;">
-        <strong>Kinetic.AI</strong> | Powered by Gemini 2.5 Flash | Physics-First Analysis | Temperature: 0.0
+        <div style="text-align: center; font-size: 0.9rem; padding: 2rem 0;">
+        <span style="background: linear-gradient(90deg, #4285f4 0%, #9c27b0 50%, #f538a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">Kinetic.AI</span> 
+        <span style="color: #9aa0a6;">| Powered by</span> 
+        <span style="color: #4285f4; font-weight: 600;">Gemini 2.5 Flash</span> 
+        <span style="color: #9aa0a6;">| Physics-First Analysis | Temperature: 0.0</span>
         </div>
     """, unsafe_allow_html=True)
 
